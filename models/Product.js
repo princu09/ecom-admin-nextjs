@@ -14,6 +14,16 @@ const ProductSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    category: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Category",
+      required: true,
+    },
+    subCategory: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "SubCategory",
+      required: true,
+    },
     slug: {
       type: String,
       required: true,
@@ -44,15 +54,9 @@ const ProductSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
-    category: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Category",
-      required: true,
-    },
-    subCategory: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "SubCategory",
-      required: true,
+    status: {
+      type: Boolean,
+      default: true,
     },
     tag: {
       type: Object,
@@ -60,11 +64,11 @@ const ProductSchema = new mongoose.Schema(
     },
     metaTitle: {
       type: String,
-      required: true,
+      required: false,
     },
     metaDesc: {
       type: String,
-      required: true,
+      required: false,
     },
   },
   { timestamps: true }
