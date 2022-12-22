@@ -34,15 +34,15 @@ const Sidebar = () => {
         },
         {
           name: "Add Category",
-          link: "/admin/add-category",
+          link: "/admin/category/add-category",
         },
         {
           name: "Sub Category",
-          link: "/admin/category",
+          link: "/admin/subcategory",
         },
         {
           name: "Add Sub Category",
-          link: "/admin/add-category",
+          link: "/admin/subcategory/add-subcategory",
         },
       ],
     },

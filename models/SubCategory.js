@@ -13,6 +13,7 @@ const SubCategorySchema = new mongoose.Schema({
   },
   status: {
     type: Boolean,
+    default : true
   },
   metaTitle: {
     type: String,
@@ -22,7 +23,7 @@ const SubCategorySchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  Category: {
+  category: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Category",
     required: true,

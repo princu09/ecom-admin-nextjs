@@ -6,7 +6,7 @@ const handler = async (req, res) => {
   const { body, method } = req;
 
   if (method == "GET") {
-    const category = await Category.find();
+    const category = await Category.find()
     res.status(200).json(category);
   } else if (method == "POST") {
     const category = await new Category({
@@ -31,7 +31,6 @@ const handler = async (req, res) => {
     );
     res.status(200).json({ message: "success" });
   } else if (method == "DELETE") {
-    console.log("here");
     await Category.findOneAndDelete({ id: body.id });
     res.status(200).json({ message: "success" });
   }
