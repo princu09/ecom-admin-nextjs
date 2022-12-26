@@ -75,15 +75,15 @@ const Index = () => {
         <div className="flex gap-5 items-center text-lg">
           <Link
             href={`/admin/category/${row._id}`}
-            className="cursor-pointer text-accentGreen bg-accentColor p-2 rounded"
+            className="rounded-lg bg-accentLight text-accentColor hover:text-white hover:bg-accentColor p-2"
           >
-            <FaPen classNameˀ="text-accentLightBG" />
+            <FaPen />
           </Link>
           <span
-            className="cursor-pointer text-accentGreen bg-accentColor p-2 rounded"
+            className="rounded-lg bg-accentLight text-accentColor hover:text-white hover:bg-accentColor p-2"
             onClick={() => handleDelete(row)}
           >
-            <FaTrash className="text-accentLightBG" />
+            <FaTrash />
           </span>
         </div>
       ),
@@ -91,31 +91,30 @@ const Index = () => {
   ];
 
   return (
-    <div>
-      <div className="bg-accentShadow p-3 rounded-[3px] text-accentColor w-full flex items-center justify-between mb-5 font-medium">
-        <p className="font-semibold">All Category</p>
-        <button
-          className="flex items-center gap-2 text-sm border border-accentColor rounded-md px-3 p-2 bg-accentColor text-accentDarkBG hover:bg-transparent font-bold hover:text-accentColor"
-          onClick={() => Router.push("/admin/category/add-category")}
-        >
-          <FaPlus /> ADD
-        </button>
-      </div>
-
-      <div className="overflow-x-auto relative border border-accentColor p-2 my-3">
+    <div className="rounded-lg bg-white p-5">
+      <p className="font-semibold pb-5 text-lg border-b">All Category</p>
+      <div className="overflow-x-auto relative mt-4">
         <DataTable
           columns={columns}
           data={filterData}
           pagination
           subHeader
           subHeaderComponent={
-            <input
-              type="text"
-              placeholder="Search..."
-              className="border border-accentColor text-accentDarkBG rounded-md p-2 w-[20%] my-2 focus:border-accentDarkBG focus:outline-none"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
+            <div className="w-full flex justify-between items-center">
+              <button
+                className="flex items-center gap-2 text-sm rounded-lg px-3 p-2 bg-accentLight text-accentColor hover:text-white hover:bg-accentColor"
+                onClick={() => Router.push("/admin/category/add-category")}
+              >
+                <FaPlus /> ADD
+              </button>
+              <input
+                type="text"
+                placeholder="Search..."
+                className="border border-accentColor text-accentDarkBG rounded-md p-2 w-[30%] my-2 focus:border-accentDarkBG focus:outline-none"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              />
+            </div>
           }
         />
       </div>

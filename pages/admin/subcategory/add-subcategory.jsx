@@ -18,19 +18,20 @@ const AddCategory = () => {
       .then(() => Router.push("/admin/subcategory"));
   };
 
-  const [category, setCategory] = useState(null)
+  const [category, setCategory] = useState(null);
 
   useEffect(() => {
-    axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/category`).then((res) => setCategory(res.data))
-  }, [])
-
+    axios
+      .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/category`)
+      .then((res) => setCategory(res.data));
+  }, []);
 
   return (
-    <div>
-      <div className="bg-accentShadow p-3 rounded-[3px] text-accentColor w-full flex items-center justify-between mb-5 font-medium">
+    <div className="rounded-lg bg-white p-5">
+      <div className="font-semibold pb-5 mb-5 text-lg border-b flex justify-between items-center">
         <p className="font-semibold">Add Subcategory</p>
         <button
-          className="flex items-center gap-2 text-sm border border-accentColor rounded-md px-3 p-2 bg-accentColor text-accentDarkBG hover:bg-transparent font-bold hover:text-accentColor"
+          className="bg-accentLight p-3 rounded-md font-semibold hover:bg-accentColor w-fit px-5 hover:text-white text-sm flex items-center gap-3"
           onClick={() => Router.back(-1)}
         >
           <FaChevronLeft /> Back
@@ -48,13 +49,20 @@ const AddCategory = () => {
         </div>
         <div className="">
           <label htmlFor="">Category *</label>
-          <select name="category" {...register("category")} className="mt-3 border border-accentColor bg-transparent focus:outline-none p-2 rounded-md w-full">
+          <select
+            name="category"
+            {...register("category")}
+            className="mt-3 border border-accentColor bg-transparent focus:outline-none p-2 rounded-md w-full"
+          >
             <option>Select Category...</option>
-            {category && category.map((item, index) => {
-              return <option key={index} value={item._id}>
-                {item.name}
-              </option>
-            })}
+            {category &&
+              category.map((item, index) => {
+                return (
+                  <option key={index} value={item._id}>
+                    {item.name}
+                  </option>
+                );
+              })}
           </select>
         </div>
         <div className="">
@@ -73,7 +81,7 @@ const AddCategory = () => {
             {...register("metaDesc", { required: true })}
           />
         </div>
-        <button className="bg-accentShadow p-3 rounded-md hover:text-accentDarkBG font-semibold hover:bg-accentColor">
+        <button className="bg-accentLight p-3 rounded-md font-semibold hover:bg-accentColor w-fit px-10 hover:text-white">
           Submit
         </button>
       </form>

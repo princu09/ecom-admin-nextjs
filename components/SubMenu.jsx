@@ -1,35 +1,50 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React, { useState } from "react";
-import { FaChevronCircleDown, FaChevronCircleUp } from "react-icons/fa";
+import { BsDot } from "react-icons/bs";
+import { FiChevronUp, FiChevronDown } from "react-icons/fi";
 
 const SubMenu = ({ data }) => {
+  const router = useRouter();
   const [dropdown, setDropdown] = useState(false);
   return (
-    <div>
-      <div className="flex justify-between items-center">
+    <div className="relative mb-4">
+      <div
+        className={`flex justify-between items-center gap-2 selection:select-none pl-3 p-3 rounded-lg cursor-pointer ${
+          dropdown && "bg-accentLight text-accentColor"
+        }`}
+        onClick={() => setDropdown(!dropdown)}
+      >
         <p
-          className="flex items-center gap-2 cursor-pointer selection:select-none"
-          onClick={() => setDropdown(!dropdown)}
+          className={`flex items-center gap-2 selection:select-none ${
+            dropdown && "activeMenu"
+          }`}
         >
           {data.icon} {data.name}
         </p>
         {dropdown ? (
-          <FaChevronCircleUp onClick={() => setDropdown(!dropdown)} />
+          <FiChevronUp onClick={() => setDropdown(!dropdown)} />
         ) : (
-          <FaChevronCircleDown onClick={() => setDropdown(!dropdown)} />
+          <FiChevronDown onClick={() => setDropdown(!dropdown)} />
         )}
       </div>
       {dropdown && (
-        <div className="flex flex-col gap-5 mt-5 p-6 py-4 bg-accentShadow rounded-md">
+        <div className="flex flex-col px-5">
           {data.submenu.map((item, index) => {
             return (
-              <Link
-                href={item.link}
-                className="text-black hover:text-accentColor selection:select-none font-medium"
-                key={index}
-              >
-                {item.name}
-              </Link>
+              <div className="border-l pl-2 pt-4">
+                <Link
+                  href={item.link}
+                  className={`hover:text-accentColor selection:select-none font-semibold flex items-center gap-2 ${
+                    router.pathname == item.link
+                      ? "text-accentColor"
+                      : "text-accentLightBG"
+                  } `}
+                  key={index}
+                >
+                  <BsDot className="text-lg" /> {item.name}
+                </Link>
+              </div>
             );
           })}
         </div>

@@ -11,9 +11,8 @@ module.exports = withMT({
       colors: {
         accentLightBG: "#1c2236",
         accentDarkBG: "#181d2e",
-        accentColor: "#faea80",
-        accentDarkColor: "#e8ad0e",
-        accentShadow: "#fcf29755",
+        accentColor: "#881337",
+        accentLight: "#88133722",
       },
     },
   },

@@ -58,11 +58,12 @@ const AddProduct = () => {
   }, []);
 
   return (
-    <div>
-      <div className="bg-accentShadow p-3 rounded-[3px] text-accentColor w-full flex items-center justify-between mb-5 font-medium">
-        <p className="font-semibold">Add Product</p>
+    <div className="rounded-lg bg-white p-5">
+      <div className="font-semibold pb-5 mb-5 text-lg border-b flex justify-between items-center">
+        <p className="">Add Product</p>
+
         <button
-          className="flex items-center gap-2 text-sm border border-accentColor rounded-md px-3 p-2 bg-accentColor text-accentDarkBG hover:bg-transparent font-bold hover:text-accentColor"
+          className="bg-accentLight p-3 rounded-md font-semibold hover:bg-accentColor w-fit px-5 hover:text-white text-sm flex items-center gap-3"
           onClick={() => Router.back(-1)}
         >
           <FaChevronLeft /> Back
@@ -276,7 +277,9 @@ const AddProduct = () => {
             {...register("metaDesc", { required: false })}
           />
         </div>
-        <button>Submit</button>
+        <button className="bg-accentLight p-3 rounded-md font-semibold hover:bg-accentColor w-fit px-10 hover:text-white">
+          Submit
+        </button>
       </form>
     </div>
   );
