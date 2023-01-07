@@ -1,43 +1,32 @@
-import { useState } from "react";
-import { BrowserView, MobileView } from "react-device-detect";
 import Navbar from "../components/admin/Navbar";
-import Sidebar from "../components/Sidebar";
+import Sidebar from "../components/admin/Sidebar";
 import "../styles/globals.css";
+import { Provider } from "react-redux";
+import store from "../redux/store";
+import { ColorModeContext, useMode } from "../theme/theme";
+import { CssBaseline, ThemeProvider } from "@mui/material";
 
 export default function App({ Component, pageProps, router }) {
-  const [sidebar, setSidebar] = useState(true);
+  const [theme, colorMode] = useMode();
 
   if (router.pathname.startsWith("/admin")) {
     return (
-      <>
-        <div className="px-5 min-h-screen">
-          <Navbar menu={sidebar} setMenu={setSidebar} />
-          <div className="flex gap-5 relative min-h-screen">
-            <MobileView className="">
-              <Sidebar
-                className={`${
-                  sidebar
-                    ? "translate-x-0 w-[300px] visible"
-                    : "translate-x-[-300px] w-0 invisible"
-                } absolute  ease-in-out duration-500 bg-white bottom-0 top-0 pr-10`}
-              />
-            </MobileView>
-            <BrowserView>
-              <Sidebar
-                className={`${
-                  sidebar
-                    ? "translate-x-0 w-[230px] mr-[20px] visible"
-                    : "translate-x-[-230px] w-0 invisible"
-                } ease-in-out duration-500`}
-              />
-            </BrowserView>
-
-            <div className={`mainBG p-5 rounded-lg w-full -ml-[20px]`}>
-              <Component {...pageProps} />
+      <Provider store={store}>
+        <ColorModeContext.Provider value={colorMode}>
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <div className="px-5 min-h-screen">
+              <Navbar />
+              <div className="flex gap-5 relative min-h-screen">
+                <Sidebar />
+                <div className={`mainBG p-5 rounded-lg w-full -ml-[20px]`}>
+                  <Component {...pageProps} />
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      </>
+          </ThemeProvider>
+        </ColorModeContext.Provider>
+      </Provider>
     );
   } else {
     return <Component {...pageProps} />;

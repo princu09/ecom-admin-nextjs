@@ -22,11 +22,13 @@ const SubMenu = ({ data }) => {
         >
           {data.icon} {data.name}
         </p>
-        {dropdown ? (
-          <FiChevronUp onClick={() => setDropdown(!dropdown)} />
-        ) : (
-          <FiChevronDown onClick={() => setDropdown(!dropdown)} />
-        )}
+        <span>
+          {dropdown ? (
+            <FiChevronUp onClick={() => setDropdown(!dropdown)} />
+          ) : (
+            <FiChevronDown onClick={() => setDropdown(!dropdown)} />
+          )}
+        </span>
       </div>
       {dropdown && (
         <div className="flex flex-col px-5">

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { BsBell, BsSearch } from "react-icons/bs";
 import { RiMenu2Line } from "react-icons/ri";
 import { TbAdjustmentsHorizontal } from "react-icons/tb";
@@ -14,15 +14,32 @@ import {
   Popper,
   Paper,
   Fade,
+  useTheme,
 } from "@mui/material";
+import { changeSidebar } from "../../redux/sidebarSlice";
+import { useDispatch } from "react-redux";
+import { ColorModeContext, tokens } from "../../theme/theme";
+import { DarkModeOutlined, LightModeOutlined } from "@mui/icons-material";
+import { palette } from "@mui/system";
 
-const Navbar = ({ menu, setMenu }) => {
-  const [openNotify, setOpenNotify] = useState(null);
+const Navbar = () => {
+  // Theme Changing
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
+  const colorMode = useContext(ColorModeContext);
+
+  const dispatch = useDispatch();
+
+  const [openNotify, setOpenNotify] = useState(false);
 
   const handleNotify = (event) => {
     setOpenNotify((prev) =>
-      prev !== event.currentTarget ? event.currentTarget : null
+      prev !== event.currentTarget ? event.currentTarget : false
     );
+  };
+
+  const handleChange = () => {
+    dispatch(changeSidebar());
   };
 
   return (
@@ -34,11 +51,15 @@ const Navbar = ({ menu, setMenu }) => {
           justifyContent="space-between"
           width={230}
         >
-          <Typography fontWeight={600} textAlign="center">
+          <Typography
+            fontWeight={600}
+            textAlign="center"
+            className="lg:block hidden"
+          >
             NextJS Admin.
           </Typography>
           <IconButton
-            onClick={() => setMenu(!menu)}
+            onClick={() => handleChange()}
             TouchRippleProps={{
               style: {
                 backgroundColor: "#88133722",
@@ -46,7 +67,7 @@ const Navbar = ({ menu, setMenu }) => {
             }}
             sx={{
               borderRadius: 2,
-              color: "#881337",
+              color: colors.primary[500],
               fontSize: 18,
               padding: 1,
             }}
@@ -54,7 +75,7 @@ const Navbar = ({ menu, setMenu }) => {
             <RiMenu2Line />
           </IconButton>
         </Stack>
-        <Box width={400}>
+        <Box width={400} className="lg:block hidden">
           <TextField
             placeholder="Search..."
             size="small"
@@ -129,7 +150,7 @@ const Navbar = ({ menu, setMenu }) => {
             )}
           </Popper>
         </Box>
-        <Box pr={1} position="relative">
+        <Box position="relative">
           <IconButton
             TouchRippleProps={{
               style: {
@@ -146,36 +167,31 @@ const Navbar = ({ menu, setMenu }) => {
             <AiOutlineSetting />
           </IconButton>
         </Box>
+        <Box pr={1} position="relative" className="lg:block hidden">
+          <IconButton
+            TouchRippleProps={{
+              style: {
+                backgroundColor: "#88133722",
+              },
+            }}
+            sx={{
+              borderRadius: 2,
+              color: "#881337",
+              fontSize: 18,
+              padding: 1,
+            }}
+            onClick={colorMode.toggleColorMode}
+          >
+            {theme.palette.mode == "light" ? (
+              <DarkModeOutlined />
+            ) : (
+              <LightModeOutlined />
+            )}
+          </IconButton>
+        </Box>
       </Stack>
     </AppBar>
   );
 };
 
 export default Navbar;
-
-// <div className="w-full h-20 flex items-center gap-5">
-//   <div className="min-w-[230px] flex justify-between items-center">
-//     <p className="font-semibold text-lg">NextJS Admin.</p>
-//     <button
-//       className="text-accentColor bg-accentLight p-2 rounded-lg"
-//       onClick={() => setMenu(!menu)}
-//     >
-//       <RiMenu2Line />
-//     </button>
-//   </div>
-//   <div className="w-full flex justify-between items-center">
-//     <div className="lg:min-w-[35%] flex items-center relative">
-//       <BsSearch className="absolute left-2 text-accentColor" />
-//       <input
-//         type="text"
-//         className="border border-accentLight rounded-lg w-full px-10 h-12 focus:outline-accentColor"
-//         placeholder="Search Product Here..."
-//       />
-//       <TbAdjustmentsHorizontal className="absolute right-2 text-3xl bg-accentLight text-accentColor hover:text-white hover:bg-accentColor p-1 rounded-lg" />
-//     </div>
-//     <div className="flex items-center gap-5">
-//       <BsBell className="bg-accentLight text-accentColor hover:text-white hover:bg-accentColor text-3xl p-1.5 rounded-lg" />
-//       <AiOutlineSetting className="bg-accentLight text-accentColor hover:text-white hover:bg-accentColor text-3xl p-1.5 rounded-lg" />
-//     </div>
-//   </div>
-// </div>
