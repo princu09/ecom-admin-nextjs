@@ -5,7 +5,14 @@ import { FaHome, FaProductHunt, FaBoxes, FaSignOutAlt } from "react-icons/fa";
 import SubMenu from "../SubMenu";
 import { BrowserView, MobileView } from "react-device-detect";
 import { useDispatch, useSelector } from "react-redux";
-import { Drawer, IconButton, Typography, useTheme } from "@mui/material";
+import {
+  Button,
+  Drawer,
+  IconButton,
+  ListItemButton,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import { changeSidebar } from "../../redux/sidebarSlice";
 import { Box } from "@mui/system";
 import { ColorModeContext, tokens } from "../../theme/theme";
@@ -104,20 +111,34 @@ const Sidebar = () => {
             {MenuItems.map((item, index) => {
               return (
                 <div key={index} className="border-b pb-3">
-                  <p className="  ">{item.title}</p>
+                  <p className="">{item.title}</p>
                   <div className="mt-3">
                     {item.menu.map((item, index) => {
                       return item.link ? (
-                        <Link
-                          href={item.link}
-                          className={`flex items-center gap-2 selection:select-none pl-3 p-3 rounded-lg
-                  ${
-                    router.pathname == item.link &&
-                    "bg-accentLight text-accentColor"
-                  }`}
-                          key={index}
-                        >
-                          {item.icon} {item.name}
+                        <Link href={item.link}>
+                          <ListItemButton
+                            sx={{
+                              padding: 1.5,
+                              borderRadius: 2,
+                              backgroundColor:
+                                router.pathname == item.link &&
+                                colors.primary[400] + "33",
+                              "&:hover": {
+                                backgroundColor: colors.primary[800],
+                              },
+                            }}
+                            color={colors.primary[500]}
+                            //  selected={selectedIndex === 0}
+                          >
+                            <Typography
+                              display={"flex"}
+                              alignItems={"center"}
+                              gap={1}
+                              color={colors.primary[500]}
+                            >
+                              {item.icon} {item.name}
+                            </Typography>
+                          </ListItemButton>
                         </Link>
                       ) : (
                         <SubMenu data={item} key={index} />
@@ -143,21 +164,34 @@ const Sidebar = () => {
           {MenuItems.map((item, index) => {
             return (
               <div key={index} className="border-b pb-3">
-                <p className="  ">{item.title}</p>
+                <p className="">{item.title}</p>
                 <div className="mt-3">
                   {item.menu.map((item, index) => {
                     return item.link ? (
-                      <Link
-                        href={item.link}
-                        className={`flex items-center gap-2 selection:select-none pl-3 p-3 rounded-lg
-                        ${router.pathname == item.link && `bg-accentLight`}`}
-                        style={{
-                          color: colors.primary[500],
-                          background: colors.primary[900],
-                        }}
-                        key={index}
-                      >
-                        {item.icon} {item.name}
+                      <Link href={item.link}>
+                        <ListItemButton
+                          sx={{
+                            padding: 1.5,
+                            borderRadius: 2,
+                            backgroundColor:
+                              router.pathname == item.link &&
+                              colors.primary[400] + "33",
+                            "&:hover": {
+                              backgroundColor: colors.primary[800],
+                            },
+                          }}
+                          color={colors.primary[500]}
+                          //  selected={selectedIndex === 0}
+                        >
+                          <Typography
+                            display={"flex"}
+                            alignItems={"center"}
+                            gap={1}
+                            color={colors.primary[500]}
+                          >
+                            {item.icon} {item.name}
+                          </Typography>
+                        </ListItemButton>
                       </Link>
                     ) : (
                       <SubMenu data={item} key={index} />
@@ -168,7 +202,11 @@ const Sidebar = () => {
             );
           })}
         </div>
-        <Box pr={1} position="relative" className="block lg:hidden mt-5 ml-auto mr-3">
+        <Box
+          pr={1}
+          position="relative"
+          className="block lg:hidden mt-5 ml-auto mr-3"
+        >
           <IconButton
             TouchRippleProps={{
               style: {

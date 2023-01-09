@@ -1,4 +1,4 @@
-const { createSlice } = require("@reduxjs/toolkit");
+import { createSlice } from "@reduxjs/toolkit";
 
 const sidebarSlice = createSlice({
   name: "sidebar",
@@ -11,4 +11,5 @@ const sidebarSlice = createSlice({
 });
 
 export const { changeSidebar } = sidebarSlice.actions;
+
 export default sidebarSlice.reducer;

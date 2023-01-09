@@ -4,7 +4,7 @@ import "../styles/globals.css";
 import { Provider } from "react-redux";
 import store from "../redux/store";
 import { ColorModeContext, useMode } from "../theme/theme";
-import { CssBaseline, ThemeProvider } from "@mui/material";
+import { CssBaseline, GlobalStyles, ThemeProvider } from "@mui/material";
 
 export default function App({ Component, pageProps, router }) {
   const [theme, colorMode] = useMode();
